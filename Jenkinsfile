@@ -19,7 +19,7 @@ pipeline {
 
     stage('Build') {
       steps {
-        sh "sudo docker build -t ${params.IMAGE_NAME}:latest ."
+        docker.build('dashboard:latest')
       }
     }
 
