@@ -19,7 +19,7 @@ pipeline {
 
     stage('Build') {
       steps {
-        bat "docker build -t ${params.IMAGE_NAME}:latest ."
+        sh "docker build -t ${params.IMAGE_NAME}:latest ."
       }
     }
 
@@ -31,9 +31,9 @@ pipeline {
 
     stage('Push Images to Docker Hub') {
       steps {
-        bat "echo %DOCKERHUB_CREDENTIALS_PSW%| docker login -u ${params.DOCKERHUB_USERNAME} --password-stdin"
-        bat "docker tag ${params.IMAGE_NAME}:latest ${params.DOCKERHUB_USERNAME}/${params.IMAGE_NAME}:latest"
-        bat "docker push ${params.DOCKERHUB_USERNAME}/${params.IMAGE_NAME}:latest"
+        sh "echo %DOCKERHUB_CREDENTIALS_PSW%| docker login -u ${params.DOCKERHUB_USERNAME} --password-stdin"
+        sh "docker tag ${params.IMAGE_NAME}:latest ${params.DOCKERHUB_USERNAME}/${params.IMAGE_NAME}:latest"
+        sh "docker push ${params.DOCKERHUB_USERNAME}/${params.IMAGE_NAME}:latest"
       }
     }
 
