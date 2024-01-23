@@ -32,14 +32,14 @@ pipeline {
     stage('Push Images to Docker Hub') {
       steps {
         sh 'echo -n "$DOCKERHUB_CREDENTIALS_PSW"| docker login -u "$DOCKERHUB_CREDENTIALS_USR" --password-stdin'
-        sh "sudo docker tag ${params.IMAGE_NAME}:latest ${params.DOCKERHUB_USERNAME}/${params.IMAGE_NAME}:latest"
-        sh "sudo docker push ${params.DOCKERHUB_USERNAME}/${params.IMAGE_NAME}:latest"
+        sh "docker tag ${params.IMAGE_NAME}:latest ${params.DOCKERHUB_USERNAME}/${params.IMAGE_NAME}:latest"
+        sh "docker push ${params.DOCKERHUB_USERNAME}/${params.IMAGE_NAME}:latest"
       }
     }
 
     stage('Cleanup') {
         steps {
-          sh 'sudo docker logout'
+          sh 'docker logout'
         }
       }
   }
